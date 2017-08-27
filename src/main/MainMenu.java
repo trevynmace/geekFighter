@@ -2,9 +2,6 @@ package main;
 
 import java.awt.CardLayout;
 import java.awt.Color;
-import java.awt.GraphicsDevice;
-import java.awt.GraphicsEnvironment;
-import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -16,6 +13,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import net.miginfocom.swing.MigLayout;
+import utilities.Utilities;
 
 public class MainMenu
 {
@@ -59,7 +57,7 @@ public class MainMenu
 
 		frame = new JFrame();
 		frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
-		frame.setLocation(findBestLocation());
+		frame.setLocation(Utilities.findBestLocation(FRAME_WIDTH, FRAME_HEIGHT));
 		frame.setTitle("Geek Fighter 64");
 		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		frame.addWindowListener(new WindowAdapter()
@@ -89,8 +87,8 @@ public class MainMenu
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
-				// TODO Auto-generated method stub
-
+				GameFrame game = new GameFrame();
+				game.initialize();
 			}
 		});
 		menuOptionsButton.addActionListener(new ActionListener()
@@ -119,17 +117,6 @@ public class MainMenu
 				cl.show(panel, MENUPANEL);
 			}
 		});
-	}
-
-	private Point findBestLocation()
-	{
-		GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
-		int width = gd.getDisplayMode().getWidth();
-		int height = gd.getDisplayMode().getHeight();
-
-		int idealHorizontalLocation = (width / 2) - (FRAME_WIDTH / 2);
-		int idealVerticalLocation = (height / 2) - (FRAME_HEIGHT / 2);
-		return new Point(idealHorizontalLocation, idealVerticalLocation);
 	}
 
 	private void exitAction()
